@@ -1,0 +1,116 @@
+USE LearnItFirst171
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[Company](
+	[CompanyId] [char](3) NOT NULL,
+	[Name] [varchar](128) NOT NULL,
+ CONSTRAINT [PK_Company] PRIMARY KEY CLUSTERED 
+(
+	[CompanyId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY],
+ CONSTRAINT [Company.Name must be unique] UNIQUE NONCLUSTERED 
+(
+	[Name] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+CREATE TABLE [dbo].[LogFileEntry](
+	[CompanyId] [char](3) NOT NULL,
+	[LogFilename] [varchar](255) NOT NULL,
+	[RowNumber] [int] NOT NULL,
+	[EntryTime] [datetime] NOT NULL,
+	[ServerName] [varchar](255) NOT NULL,
+	[ServerIpAddress] [varchar](255) NOT NULL,
+	[Method] [varchar](255) NOT NULL,
+	[UriStem] [varchar](255) NOT NULL,
+	[UriQuery] [varchar](512) NULL,
+	[Port] [int] NOT NULL,
+	[ClientIpAddress] [varchar](128) NOT NULL,
+	[HttpVersion] [varchar](255) NOT NULL,
+	[UserAgent] [varchar](512) NOT NULL,
+	[Referrer] [varchar](512) NULL,
+	[Hostname] [varchar](255) NOT NULL,
+	[HttpStatus] [int] NOT NULL,
+	[Win32Status] [int] NOT NULL,
+	[TimeTaken] [int] NOT NULL,
+ CONSTRAINT [PK_LogFileEntry] PRIMARY KEY NONCLUSTERED 
+(
+	[CompanyId] ASC,
+	[LogFilename] ASC,
+	[RowNumber] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) 
+
+GO
+CREATE CLUSTERED INDEX cn_LogFileEntry_CompanyId_EntryTime ON [dbo].[LogFileEntry]
+(
+	[CompanyId] ASC,
+	[EntryTime] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF
+, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF
+, ONLINE = OFF, ALLOW_ROW_LOCKS = ON
+, ALLOW_PAGE_LOCKS = ON) 
+
+GO
+CREATE NONCLUSTERED INDEX [nci_LogFileEntry_ClientIp] ON [dbo].[LogFileEntry]
+(
+	[ClientIpAddress] ASC
+)
+INCLUDE ( 	[UriStem]) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) 
+GO
+CREATE NONCLUSTERED INDEX [nci_LogFileEntry_Company_Log] ON [dbo].[LogFileEntry]
+(
+	[CompanyId] ASC,
+	[LogFilename] ASC
+)
+INCLUDE ( 	[ClientIpAddress]) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) 
+GO
+CREATE NONCLUSTERED INDEX [nci_LogFileEntry_CompanyId] ON [dbo].[LogFileEntry]
+(
+	[CompanyId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) 
+GO
+CREATE NONCLUSTERED INDEX [nci_LogFileEntry_CompanyId_EntryTime] ON [dbo].[LogFileEntry]
+(
+	[CompanyId] ASC,
+	[EntryTime] ASC
+)
+INCLUDE ( 	[UriStem],
+	[ClientIpAddress],
+	[UserAgent]) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) 
+GO
+CREATE NONCLUSTERED INDEX [nci_LogFileEntry_CompanyId_EntryTime_ClientIpAddress] ON [dbo].[LogFileEntry]
+(
+	[CompanyId] ASC,
+	[EntryTime] ASC,
+	[ClientIpAddress] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) 
+GO
+CREATE NONCLUSTERED INDEX [nci_LogFileEntry_Ip] ON [dbo].[LogFileEntry]
+(
+	[ClientIpAddress] ASC
+)
+INCLUDE ( 	[CompanyId],
+	[EntryTime],
+	[TimeTaken]) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) 
+GO
+CREATE NONCLUSTERED INDEX [nci_LogFileEntry_LogFileName] ON [dbo].[LogFileEntry]
+(
+	[LogFilename] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) 
+GO
+CREATE NONCLUSTERED INDEX [nci_LogFileEntry_Time_IP] ON [dbo].[LogFileEntry]
+(
+	[EntryTime] ASC,
+	[ClientIpAddress] ASC
+)
+INCLUDE ( 	[CompanyId],
+	[LogFilename]) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) 
+GO

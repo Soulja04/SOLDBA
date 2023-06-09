@@ -1,0 +1,19 @@
+ALTER DATABASE LearnItFirst171
+SET COMPATIBILITY_LEVEL = 110;
+GO
+
+USE LearnItFirst171
+GO
+DBCC CHECKDB WITH DATA_PURITY
+
+
+DBCC UPDATEUSAGE('LearnItFirst171')
+
+USE LearnItFirst171
+GO
+EXEC sp_updatestats
+
+
+SELECT * FROM sys.databases WHERE name=N'LearnItFirst171'
+UNION 
+SELECT * FROM sys.databases WHERE name=N'model'
