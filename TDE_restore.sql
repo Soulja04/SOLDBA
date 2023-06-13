@@ -8,7 +8,7 @@ USE master
 GO
 
 
-CREATE MASTER KEY ENCRYPTION BY PASSWORD = 'y4.daLA6HeTb^>-cn5a1T.'
+CREATE MASTER KEY ENCRYPTION BY PASSWORD = 'wfdwfwdwdwd'
 
 
 USE [master]
@@ -19,7 +19,7 @@ GO
 CREATE CERTIFICATE TDECert_Renew
 FROM FILE ='D:\DBA\TDE_certs_Test\TDECert_renew.cer'   
 WITH PRIVATE KEY (FILE = 'D:\DBA\TDE_certs_Test\TDECert_renew.pvk', 
-DECRYPTION BY PASSWORD = 'y4.daLj8EJs4\-cn5a1T.')
+DECRYPTION BY PASSWORD = 'fewfwfwwww')
 
 USE [master]
 RESTORE DATABASE [TDE_Test] FROM  DISK = N'F:\Backup\TDE_Test_withtde.bak' 
@@ -37,7 +37,7 @@ USE master
 GO
 
 
-CREATE MASTER KEY ENCRYPTION BY PASSWORD = 'y4.daLA6HeTb^>-cn5a1T.'
+CREATE MASTER KEY ENCRYPTION BY PASSWORD = 'wfdwfwdwd23'
 
 
 USE [master]
@@ -48,7 +48,7 @@ GO
 CREATE CERTIFICATE TDECert_Renew
 FROM FILE ='D:\DBA\TDE_certs_Test\TDECert_renew.cer'   
 WITH PRIVATE KEY (FILE = 'D:\DBA\TDE_certs_Test\TDECert_renew.pvk', 
-DECRYPTION BY PASSWORD = 'y4.daLA6HeTb^>-cn5a1T.')
+DECRYPTION BY PASSWORD = 'wfwdwdwd22d')
 
 USE [master]
 RESTORE DATABASE [TDE_Test] FROM  DISK = N'F:\Backup\TDE_Test_withtde.bak' 
