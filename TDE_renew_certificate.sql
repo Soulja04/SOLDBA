@@ -43,9 +43,9 @@ GO
 BACKUP CERTIFICATE TDECert_renew
 TO FILE = 'D:\DBA\Cares\TDE\TDE_08_01_2019\TDECert_renew.cer'
 WITH PRIVATE KEY (FILE = 'D:\DBA\Cares\TDE\TDE_08_01_2019\TDECert_renew.pvk',
-ENCRYPTION BY PASSWORD = 'y4.daLA6HeTb^>-cn5a1T.');
+ENCRYPTION BY PASSWORD = 'y4.daLddfdwdw');
 GO 
---y4.daLj8EJs4\-cn5a1T.
+--efefcewfwef.
 --drop old certificate if it doesn't needed
 
 USE [master]
